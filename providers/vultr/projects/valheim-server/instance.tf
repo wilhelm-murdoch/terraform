@@ -9,9 +9,9 @@ resource "vultr_instance" "valheim" {
   reserved_ip_id = vultr_reserved_ip.valheim.id
 
   user_data = templatefile("${path.module}/files/cloud-init.yml", {
-    valheim_server_name     = locals.valheim_server_name
-    valheim_server_password = locals.valheim_server_password
-    valheim_world_name      = locals.valheim_world_name
+    valheim_server_name     = local.valheim_server_name
+    valheim_server_password = local.valheim_server_password
+    valheim_world_name      = local.valheim_world_name
     ssh_public_key          = tls_private_key.default.public_key_openssh
   })
 }
