@@ -12,3 +12,5 @@ terraform.tfplan
 .project
 *.zip
 .envrc
+*.pub
+*.priv
