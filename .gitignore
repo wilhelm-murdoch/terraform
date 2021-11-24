@@ -1,1 +1,14 @@
+.DS_Store
+*.tfstate
+*.tfstate.backup
+.terraform.lock*
+.terraform/
+modules/**/versions.tf
+terraform.tfplan
+*.log
+*.bak
+*~
+.*.swp
+.project
+*.zip
 .envrc
