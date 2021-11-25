@@ -3,7 +3,7 @@ resource "vultr_firewall_group" "valheim" {
 }
 
 resource "vultr_firewall_rule" "server" {
-  for_each = local.ip_allow_list
+  for_each = local.ip_allow_list_valheim
 
   firewall_group_id = vultr_firewall_group.valheim.id
   protocol          = "udp"
@@ -15,7 +15,7 @@ resource "vultr_firewall_rule" "server" {
 }
 
 resource "vultr_firewall_rule" "ssh" {
-  for_each = local.ip_allow_list
+  for_each = local.ip_allow_list_ssh
 
   firewall_group_id = vultr_firewall_group.valheim.id
   protocol          = "tcp"

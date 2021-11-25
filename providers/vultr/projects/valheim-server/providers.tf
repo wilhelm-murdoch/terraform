@@ -9,3 +9,6 @@ provider "tls" {
 
 provider "random" {
 }
+
+provider "http" {
+}

@@ -13,6 +13,9 @@ terraform {
     random = {
       source = "hashicorp/random"
     }
+    http = {
+      source = "hashicorp/http"
+    }
   }
   required_version = ">= 1.0.6"
 }
