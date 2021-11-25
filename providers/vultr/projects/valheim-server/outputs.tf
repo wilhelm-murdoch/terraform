@@ -13,6 +13,10 @@ output "server_password" {
   value     = random_password.password.result
 }
 
-output "server_address" {
+output "server_ip" {
   value = vultr_reserved_ip.valheim.subnet
+}
+
+output "server_fqdn" {
+  value = digitalocean_record.valheim.fqdn
 }

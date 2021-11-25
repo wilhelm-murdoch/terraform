@@ -3,15 +3,13 @@ resource "vultr_firewall_group" "valheim" {
 }
 
 resource "vultr_firewall_rule" "server" {
-  for_each = local.ip_allow_list_valheim
-
   firewall_group_id = vultr_firewall_group.valheim.id
   protocol          = "udp"
   ip_type           = "v4"
-  subnet            = each.value
+  subnet            = "0.0.0.0"
   subnet_size       = 32
   port              = "2456:2458"
-  notes             = "Valheim server access for ${each.key}."
+  notes             = "Valheim server access for everyone."
 }
 
 resource "vultr_firewall_rule" "ssh" {

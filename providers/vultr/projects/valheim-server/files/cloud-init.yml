@@ -13,15 +13,6 @@ users:
 
 write_files:
   - content: |
-      alias ll="ls -lsa"
-      alias s=systemctl
-      alias j=journalctl
-      alias d=docker
-    owner: root:root
-    path: /etc/profile.d/aliases.sh
-    permissions: 0644
-
-  - content: |
       net.ipv4.conf.default.rp_filter = 1
       net.ipv4.conf.all.rp_filter = 1
       net.ipv4.tcp_syncookies = 1
@@ -90,6 +81,8 @@ write_files:
       WORLD_NAME=${valheim_world_name}
       SERVER_PASS=${valheim_server_password}
       SERVER_PUBLIC=false
+      PERMITTEDLIST_IDS=${steam_ids_permitted}
+      ADMINLIST_IDS=${steam_ids_admin}
     owner: root:root
     path: /etc/sysconfig/valheim.env
     permissions: 0644
@@ -103,10 +96,10 @@ write_files:
 
       [Service]
       TimeoutStartSec=0
-      ExecStartPre=-/usr/bin/docker stop %n
-      ExecStartPre=-/usr/bin/docker rm %n
+      ExecStartPre=-/usr/bin/docker stop valheim-server
+      ExecStartPre=-/usr/bin/docker rm valheim-server
       ExecStart=/usr/bin/docker run \
-        --name %n \
+        --name valheim-server \
         --pull=always \
         --rm \
         --cap-add=sys_nice \
@@ -116,7 +109,7 @@ write_files:
         -p 2456-2457:2456-2457/udp \
         --env-file /etc/sysconfig/valheim.env \
         ghcr.io/lloesche/valheim-server
-      ExecStop=/usr/bin/docker stop %n
+      ExecStop=/usr/bin/docker stop valheim-server
       Restart=always
       RestartSec=10s
 
@@ -128,6 +121,9 @@ write_files:
 
 runcmd:
   - mkdir -p /etc/valheim /opt/valheim
+  - chown -R valheim:valheim /etc/valheim /opt/valheim
+  - timedatectl set-timezone Australia/Sydney
+  - echo 'ENABLED="0"' >> /etc/default/irqbalance
   - passwd -l root
   - apt-get update
   - apt-get upgrade

@@ -9,7 +9,7 @@ resource "local_file" "connect" {
   file_permission = "0700"
 
   content = templatefile("${path.module}/files/connect.tpl", {
-    key_path       = "${path.module}/key.priv"
-    server_address = vultr_reserved_ip.valheim.subnet
+    key_path    = "${path.module}/key.priv"
+    server_fqdn = digitalocean_record.valheim.fqdn
   })
 }

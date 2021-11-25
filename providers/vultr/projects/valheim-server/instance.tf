@@ -13,5 +13,11 @@ resource "vultr_instance" "valheim" {
     valheim_server_password = local.valheim_server_password
     valheim_world_name      = local.valheim_world_name
     ssh_public_key          = tls_private_key.default.public_key_openssh
+    steam_ids_admin         = join(" ", values(local.steam_ids_admin))
+    steam_ids_permitted     = join(" ", values(local.steam_ids_permitted))
   })
+
+  lifecycle {
+    ignore_changes = [kvm]
+  }
 }
