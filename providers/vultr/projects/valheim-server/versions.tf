@@ -16,6 +16,9 @@ terraform {
     http = {
       source = "hashicorp/http"
     }
+    digitalocean = {
+      source = "digitalocean/digitalocean"
+    }
   }
   required_version = ">= 1.0.6"
 }

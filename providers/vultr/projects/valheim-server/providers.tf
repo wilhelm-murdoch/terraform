@@ -12,3 +12,6 @@ provider "random" {
 
 provider "http" {
 }
+
+provider "digitalocean" {
+}
